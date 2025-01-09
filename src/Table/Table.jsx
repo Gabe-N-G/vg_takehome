@@ -1,8 +1,28 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 function table() {
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const [table, setTable] =  useState({})
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState("");
+
+
+
+  useEffect(() => {
+    const fetchData = async() =>{
+      try {
+        const response = await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`)
+        console.log(response.data)
+        setTable(response.data)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false);
+      }
+    }  
+    fetchData();  
+  },[])  
 
   const handleSubmit = (e) => {
     e.preventDefault();
