@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function table() {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [data, setData] =  useState(null)
+  const [data, setData] =  useState([])
   const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState("");
 
@@ -81,35 +81,34 @@ function table() {
         />
         <button type="submit">Submit</button>
     </form>
-
-    <table>
-  <caption>
-    Results
-  </caption>
-
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Revenue</th>
-      <th scope="col">Net Income</th>
-      <th scope="col">Gross Profit</th>
-      <th scope="col">EPS (Earnings Per Share)</th>
-      <th scope="col">Operating Income</th>
-    </tr>
-  </thead>
-  <tbody>
-    {data?.map((row)=>{
-      <tr>
-        <td>{row.date}</td>
-        <td>{row.revenue}</td>
-        <td>{row.netIncome}</td>
-        <td>{row.grossProfit}</td>
-        <td>{row.eps}</td>
-        <td>{row.operatingIncome}</td>
-      </tr>
-    })}
-  </tbody>
-</table>
+    {data.length > 0 ? 
+      <table>
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Revenue</th>
+              <th scope="col">Net Income</th>
+              <th scope="col">Gross Profit</th>
+              <th scope="col">EPS (Earnings Per Share)</th>
+              <th scope="col">Operating Income</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, idx)=>{
+              <tr key={idx}>
+                <td>{row.date}</td>
+                <td>{row.revenue}</td>
+                <td>{row.netIncome}</td>
+                <td>{row.grossProfit}</td>
+                <td>{row.eps}</td>
+                <td>{row.operatingIncome}</td>
+              </tr>
+            })}
+          </tbody>
+      </table>
+      : 
+            <p>now loading</p>
+      }
     </>
   )
 }
