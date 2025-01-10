@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function table() {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [table, setTable] =  useState({})
+  const [data, setData] =  useState(null)
   const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState("");
 
@@ -13,8 +13,8 @@ function table() {
     const fetchData = async() =>{
       try {
         const response = await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`)
-        console.log(response.data)
-        setTable(response.data)
+        // console.log(response.data)
+        setData(response.data)
       } catch (error) {
         console.log(error)
       } finally {
@@ -26,8 +26,6 @@ function table() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // addPokemon(formData)
-    // setFormData(initialState);
   };
 
   const handleChange = (e) => {
@@ -100,33 +98,17 @@ function table() {
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">Chris</th>
-      <td>HTML tables</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <th scope="row">Dennis</th>
-      <td>Web accessibility</td>
-      <td>45</td>
-    </tr>
-    <tr>
-      <th scope="row">Sarah</th>
-      <td>JavaScript frameworks</td>
-      <td>29</td>
-    </tr>
-    <tr>
-      <th scope="row">Karen</th>
-      <td>Web performance</td>
-      <td>36</td>
-    </tr>
+    {data?.map((row)=>{
+      <tr>
+        <td>{row.date}</td>
+        <td>{row.revenue}</td>
+        <td>{row.netIncome}</td>
+        <td>{row.grossProfit}</td>
+        <td>{row.eps}</td>
+        <td>{row.operatingIncome}</td>
+      </tr>
+    })}
   </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row" colspan="2">Average age</th>
-      <td>33</td>
-    </tr>
-  </tfoot>
 </table>
     </>
   )
