@@ -13,7 +13,6 @@ function table() {
     const fetchData = async() =>{
       try {
         const response = await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`)
-        // console.log(response.data)
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -30,6 +29,36 @@ function table() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData)
   };
+
+  const sortAsc = (e) =>{
+    let val = e.target.value
+    const sorted = [...data].sort((a,b)=> a[val] - b[val])
+    console.log(sorted)
+    setData(sorted)
+  }
+
+  const sortDesc = (e) =>{
+    let val = e.target.value
+    const sorted = [...data].sort((a,b)=> b[val] - a[val])
+    console.log(sorted)
+    setData(sorted)
+  }
+
+  const sortDateAsc = (e) =>{
+    console.log(e.target.value)
+    let val = e.target.value
+    const sorted = [...data].sort((a,b)=> a[val] - b[val])
+    console.log(sorted)
+    setData(sorted)
+  }
+
+  const sortDateDesc = (e) =>{
+    console.log(e.target.value)
+    let val = e.target.value
+    const sorted = [...data].sort((a,b)=> b[val] - a[val])
+    console.log(sorted)
+    setData(sorted)
+  }
 
   return (  
     <><h1>APPL Stock</h1>
@@ -83,9 +112,18 @@ function table() {
       <table>
           <thead>
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Revenue</th>
-              <th scope="col">Net Income</th>
+              <th scope="col">Date
+                <button value='date' onClick={sortDateAsc}>Asc</button>
+                <button value='date' onClick={sortDateDesc}>Desc</button>
+              </th>
+              <th scope="col">Revenue
+                <button value='revenue' onClick={sortAsc}>Asc</button>
+                <button value='revenue' onClick={sortDesc}>Desc</button>
+              </th>
+              <th scope="col">Net Income
+                <button value='netIncome' onClick={sortAsc}>Asc</button>
+                <button value='netIncome' onClick={sortDesc}>Desc</button>
+              </th>
               <th scope="col">Gross Profit</th>
               <th scope="col">EPS</th>
               <th scope="col">Operating Income</th>
