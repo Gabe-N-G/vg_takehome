@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import humanizeNumber from 'humanize-number';
 
 function table() {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [data, setData] =  useState([])
-  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState("");
 
 
@@ -17,8 +17,6 @@ function table() {
         setData(response.data)
       } catch (error) {
         console.log(error)
-      } finally {
-        setLoading(false);
       }
     }  
     fetchData();  
@@ -89,21 +87,21 @@ function table() {
               <th scope="col">Revenue</th>
               <th scope="col">Net Income</th>
               <th scope="col">Gross Profit</th>
-              <th scope="col">EPS (Earnings Per Share)</th>
+              <th scope="col">EPS</th>
               <th scope="col">Operating Income</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((row, idx)=>{
+            {data.map((row, idx)=>(
               <tr key={idx}>
                 <td>{row.date}</td>
-                <td>{row.revenue}</td>
-                <td>{row.netIncome}</td>
-                <td>{row.grossProfit}</td>
+                <td>{humanizeNumber(row.revenue)}</td>
+                <td>{humanizeNumber(row.netIncome)}</td>
+                <td>{humanizeNumber(row.grossProfit)}</td>
                 <td>{row.eps}</td>
-                <td>{row.operatingIncome}</td>
+                <td>{humanizeNumber(row.operatingIncome)}</td>
               </tr>
-            })}
+            ))}
           </tbody>
       </table>
       : 
