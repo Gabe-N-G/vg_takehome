@@ -44,18 +44,22 @@ function table() {
     setData(sorted)
   }
 
-  const sortDateAsc = (e) =>{
-    console.log(e.target.value)
-    let val = e.target.value
-    const sorted = [...data].sort((a,b)=> a[val] - b[val])
+  const sortDateAsc = () =>{
+    const sorted = [...data].sort((a,b)=>{
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA - dateB
+      })
     console.log(sorted)
     setData(sorted)
   }
 
-  const sortDateDesc = (e) =>{
-    console.log(e.target.value)
-    let val = e.target.value
-    const sorted = [...data].sort((a,b)=> b[val] - a[val])
+  const sortDateDesc = () =>{
+    const sorted = [...data].sort((a,b)=>{
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB - dateA
+      })
     console.log(sorted)
     setData(sorted)
   }
