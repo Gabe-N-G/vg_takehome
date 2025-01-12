@@ -5,7 +5,14 @@ import humanizeNumber from 'humanize-number';
 function Table() {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [data, setData] =  useState([])
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({
+    datestart: "",
+    dateend: "",
+    RevenueMin: 0,
+    RevenueMax: 0,
+    NetMin: 0,
+    NetMax: 0,
+  });
 
   const fetchData = async() =>{
     try {
@@ -18,14 +25,19 @@ function Table() {
 
   useEffect(() => {
     fetchData();  
-  },[])  
+  },[])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data)
-    
-    const filtered = data.filter((val) => 
-      val.netIncome >= formData.NetMin && val.netIncome <= formData.NetMax)
+    console.log(formData)
+
+    const filtered = data.filter((val) => {
+      const itemYear = new Date(val.date).getFullYear();
+      const years = (!formData.datestart || itemYear >= parseInt(formData.datestart)) && (!formData.dateend || itemYear <= parseInt(formData.dateend))
+      const rev = (!formData.RevenueMin || val.revenue >= formData.RevenueMin) && (!formData.RevenueMax  || val.revenue <= formData.RevenueMax)  
+      const net = (!formData.NetMin || val.netIncome >= formData.NetMin) && (!formData.NetMax || val.netIncome <= formData.NetMax)
+      return years && rev && net
+      })
     console.log(filtered)
   };
 
@@ -76,7 +88,7 @@ function Table() {
         <h2>Filter Entries</h2>
         <label htmlFor="year">Year:</label>
         <input
-          type="year"
+          type="number"
           id="datestart"
           name="datestart"
           value={formData.datestart}
@@ -84,7 +96,7 @@ function Table() {
         />
         to
         <input
-          type="year"
+          type="number"
           id="dateend"
           name="dateend"
           value={formData.dateend}
