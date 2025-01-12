@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import humanizeNumber from 'humanize-number';
 
-function table() {
+function Table() {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [data, setData] =  useState([])
   const [formData, setFormData] = useState("");
@@ -33,14 +33,14 @@ function table() {
   const sortAsc = (e) =>{
     let val = e.target.value
     const sorted = [...data].sort((a,b)=> a[val] - b[val])
-    console.log(sorted)
+    // console.log(sorted)
     setData(sorted)
   }
 
   const sortDesc = (e) =>{
     let val = e.target.value
     const sorted = [...data].sort((a,b)=> b[val] - a[val])
-    console.log(sorted)
+    // console.log(sorted)
     setData(sorted)
   }
 
@@ -50,7 +50,7 @@ function table() {
       const dateB = new Date(b.date);
       return dateA - dateB
       })
-    console.log(sorted)
+    // console.log(sorted)
     setData(sorted)
   }
 
@@ -60,7 +60,7 @@ function table() {
       const dateB = new Date(b.date);
       return dateB - dateA
       })
-    console.log(sorted)
+    // console.log(sorted)
     setData(sorted)
   }
 
@@ -94,7 +94,7 @@ function table() {
           value={formData.Revenue_max}
           onChange={handleChange}
         />
-        <label htmlFor="Net Income:">Net Income::</label>
+        <label htmlFor="Net Income:">Net Income:</label>
         <input
           type="number"
           id="NetMin"
@@ -117,16 +117,25 @@ function table() {
           <thead>
             <tr>
               <th scope="col">Date
-                <button value='date' onClick={sortDateAsc}>Asc</button>
-                <button value='date' onClick={sortDateDesc}>Desc</button>
+                <div>
+                  Sort:
+                  <button value='date' onClick={sortDateAsc}>Asc</button>
+                  <button value='date' onClick={sortDateDesc}>Desc</button>
+                </div>
               </th>
               <th scope="col">Revenue
-                <button value='revenue' onClick={sortAsc}>Asc</button>
-                <button value='revenue' onClick={sortDesc}>Desc</button>
+                <div>
+                  Sort:
+                  <button value='revenue' onClick={sortAsc}>Asc</button>
+                  <button value='revenue' onClick={sortDesc}>Desc</button>
+                </div>
               </th>
               <th scope="col">Net Income
-                <button value='netIncome' onClick={sortAsc}>Asc</button>
-                <button value='netIncome' onClick={sortDesc}>Desc</button>
+                <div>
+                  Sort:
+                  <button value='netIncome' onClick={sortAsc}>Asc</button>
+                  <button value='netIncome' onClick={sortDesc}>Desc</button>
+                </div>
               </th>
               <th scope="col">Gross Profit</th>
               <th scope="col">EPS</th>
@@ -153,4 +162,4 @@ function table() {
   )
 }
 
-export default table
+export default Table
