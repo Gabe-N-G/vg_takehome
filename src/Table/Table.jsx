@@ -4,16 +4,16 @@ import humanizeNumber from 'humanize-number';
 
 function Table() {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [data, setData] =  useState([])
-  const [formData, setFormData] = useState({
+  const initialState = {
     datestart: "",
     dateend: "",
     RevenueMin: 0,
     RevenueMax: 0,
     NetMin: 0,
     NetMax: 0,
-  });
-
+  }
+  const [data, setData] =  useState([])
+  const [formData, setFormData] = useState(initialState);
   const fetchData = async() =>{
     try {
       const response = await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`)
@@ -38,8 +38,14 @@ function Table() {
       const net = (!formData.NetMin || val.netIncome >= formData.NetMin) && (!formData.NetMax || val.netIncome <= formData.NetMax)
       return years && rev && net
       })
-    console.log(filtered)
+    // console.log(filtered)
+    setData(filtered)
   };
+
+  const resetData = () => {
+    fetchData()
+    setFormData(initialState)
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -135,6 +141,7 @@ function Table() {
           onChange={handleChange}
         />
         <button type="submit">Submit</button>
+        <button onClick={resetData}>Reset</button>
     </form>
     {data.length > 0 ? 
       <table>
