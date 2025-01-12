@@ -7,22 +7,26 @@ function Table() {
   const [data, setData] =  useState([])
   const [formData, setFormData] = useState("");
 
-
+  const fetchData = async() =>{
+    try {
+      const response = await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`)
+      setData(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }  
 
   useEffect(() => {
-    const fetchData = async() =>{
-      try {
-        const response = await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`)
-        setData(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }  
     fetchData();  
   },[])  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(data)
+    
+    const filtered = data.filter((val) => 
+      val.netIncome >= formData.NetMin && val.netIncome <= formData.NetMax)
+    console.log(filtered)
   };
 
   const handleChange = (e) => {
@@ -70,12 +74,20 @@ function Table() {
     
     <form onSubmit={handleSubmit}>
         <h2>Filter Entries</h2>
-        <label htmlFor="date">Date:</label>
+        <label htmlFor="year">Year:</label>
         <input
-          type="date"
-          id="date"
-          name="date"
-          value={formData.date}
+          type="year"
+          id="datestart"
+          name="datestart"
+          value={formData.datestart}
+          onChange={handleChange}
+        />
+        to
+        <input
+          type="year"
+          id="dateend"
+          name="dateend"
+          value={formData.dateend}
           onChange={handleChange}
         />
         <label htmlFor="Revenue">Revenue:</label>
