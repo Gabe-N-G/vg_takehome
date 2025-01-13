@@ -88,7 +88,9 @@ function Table() {
 
   return (  
     <><h1>APPL Stock</h1>
-
+        <h1 class="text-3xl font-bold underline">
+      Hello world!
+    </h1>
     
     <form onSubmit={handleSubmit}>
         <h2>Filter Entries</h2>
