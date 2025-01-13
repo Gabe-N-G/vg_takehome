@@ -1,6 +1,8 @@
 # Appl Stock Watcher
 
-This is an app that allows you to watch Apple's stock through the financialmodelingprep.com api
+This is an app that allows you to watch Apple's stock through the [financialmodelingprep.com](https://site.financialmodelingprep.com/) api
+
+![desktop view](image.png)
 
 ## Libraries used
 - React (created with Vite)
@@ -11,7 +13,7 @@ This is an app that allows you to watch Apple's stock through the financialmodel
 
 ## Api call
 
-To start fetching the data, the code strings together an api call to the financial modeling prep on page load in a useeffect.
+To start fetching the data, the code strings together an api call to the financial modeling prep on page load in a useEffect hook.
 
 ```js
 const fetchData = async() =>{
@@ -90,7 +92,7 @@ For the non date types, we can write a generic sort ASC/DESC, which pulls what t
 
 ## Filtering Data
 
-All filters in this application are chained together in a single form. The user is able to chain together date (by year), revenue, and net income filtering. Hitting the reset filter simply calls the api again to refresh the data.
+All filters in this application are chained together in a single form. The user is able to chain together date (by year), revenue, and net income filtering. If any of the data is blank in the form, it is ignored and the next set of data is used to filter. Hitting the reset button simply calls the api again to refresh the data.
 
 ```js
   const handleSubmit = (e) => {
