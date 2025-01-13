@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Navbar from './Navbar/Navbar.jsx'
 import Table from './Table/Table.jsx'
 import './App.css'
@@ -6,13 +5,17 @@ import './App.css'
 function App() {
 
   return (
-    <>
-      <Navbar/>
-      <Table/>
-      <footer>
-        <p>2025 Gabriel Gutierrez</p>
-      </footer>
-    </>
+    <div class="flex flex-col min-h-screen">
+     <Navbar />
+
+    <div>
+      <Table />
+    </div>
+
+    <footer class="bg-black text-white text-left p-6 mt-auto">
+      <p>2025 Gabriel Gutierrez</p>
+    </footer>
+</div>
   )
 }
 

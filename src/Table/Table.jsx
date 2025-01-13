@@ -86,113 +86,190 @@ function Table() {
     setData(sorted)
   }
 
-  return (  
-    <><h1>APPL Stock</h1>
-        <h1 class="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    
-    <form onSubmit={handleSubmit}>
-        <h2>Filter Entries</h2>
-        <label htmlFor="year">Year:</label>
-        <input
-          type="number"
-          id="datestart"
-          name="datestart"
-          value={formData.datestart}
-          onChange={handleChange}
-        />
-        to
-        <input
-          type="number"
-          id="dateend"
-          name="dateend"
-          value={formData.dateend}
-          onChange={handleChange}
-        />
-        <label htmlFor="Revenue">Revenue:</label>
-        <input
-          type="number"
-          id="RevenueMin"
-          name="RevenueMin"
-          value={formData.Revenue_min}
-          onChange={handleChange}
-        />
-        to
-        <input
-          type="number"
-          id="RevenueMax"
-          name="RevenueMax"
-          value={formData.Revenue_max}
-          onChange={handleChange}
-        />
-        <label htmlFor="Net Income:">Net Income:</label>
-        <input
-          type="number"
-          id="NetMin"
-          name="NetMin"
-          value={formData.Net_min}
-          onChange={handleChange}
-        />
-        to
-        <input
-          type="number"
-          id="NetMax"
-          name="NetMax"
-          value={formData.Revenue_max}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-        <button onClick={resetData}>Reset</button>
-    </form>
-    {data.length > 0 ? 
-      <table>
-          <thead>
-            <tr>
-              <th scope="col">Date
-                <div>
-                  Sort:
-                  <button value='date' onClick={sortDateAsc}>Asc</button>
-                  <button value='date' onClick={sortDateDesc}>Desc</button>
-                </div>
-              </th>
-              <th scope="col">Revenue
-                <div>
-                  Sort:
-                  <button value='revenue' onClick={sortAsc}>Asc</button>
-                  <button value='revenue' onClick={sortDesc}>Desc</button>
-                </div>
-              </th>
-              <th scope="col">Net Income
-                <div>
-                  Sort:
-                  <button value='netIncome' onClick={sortAsc}>Asc</button>
-                  <button value='netIncome' onClick={sortDesc}>Desc</button>
-                </div>
-              </th>
-              <th scope="col">Gross Profit</th>
-              <th scope="col">EPS</th>
-              <th scope="col">Operating Income</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, idx)=>(
-              <tr key={idx}>
-                <td>{row.date}</td>
-                <td>{humanizeNumber(row.revenue)}</td>
-                <td>{humanizeNumber(row.netIncome)}</td>
-                <td>{humanizeNumber(row.grossProfit)}</td>
-                <td>{row.eps}</td>
-                <td>{humanizeNumber(row.operatingIncome)}</td>
+  return (
+    <>
+      <h1 className="text-3xl font-bold text-center my-6">APPL Stock</h1>
+  
+      
+  
+      {data.length > 0 ? (
+        <div className="overflow-x-auto mt-6">
+          <table className="min-w-full table-auto bg-white border-collapse">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="py-3 px-4 border-b text-left">
+                  Date
+                  <div className="mt-2">
+                    Sort:
+                    <button
+                      value="date"
+                      onClick={sortDateAsc}
+                      className="ml-2 text-blue-500 hover:text-blue-600"
+                    >
+                      Asc
+                    </button>
+                    <button
+                      value="date"
+                      onClick={sortDateDesc}
+                      className="ml-2 text-blue-500 hover:text-blue-600"
+                    >
+                      Desc
+                    </button>
+                  </div>
+                </th>
+                <th className="py-3 px-4 border-b text-left">
+                  Revenue
+                  <div className="mt-2">
+                    Sort:
+                    <button
+                      value="revenue"
+                      onClick={sortAsc}
+                      className="ml-2 text-blue-500 hover:text-blue-600"
+                    >
+                      Asc
+                    </button>
+                    <button
+                      value="revenue"
+                      onClick={sortDesc}
+                      className="ml-2 text-blue-500 hover:text-blue-600"
+                    >
+                      Desc
+                    </button>
+                  </div>
+                </th>
+                <th className="py-3 px-4 border-b text-left">
+                  Net Income
+                  <div className="mt-2">
+                    Sort:
+                    <button
+                      value="netIncome"
+                      onClick={sortAsc}
+                      className="ml-2 text-blue-500 hover:text-blue-600"
+                    >
+                      Asc
+                    </button>
+                    <button
+                      value="netIncome"
+                      onClick={sortDesc}
+                      className="ml-2 text-blue-500 hover:text-blue-600"
+                    >
+                      Desc
+                    </button>
+                  </div>
+                </th>
+                <th className="py-3 px-4 border-b text-left">Gross Profit</th>
+                <th className="py-3 px-4 border-b text-left">EPS</th>
+                <th className="py-3 px-4 border-b text-left">Operating Income</th>
               </tr>
-            ))}
-          </tbody>
-      </table>
-      : 
-            <p>now loading</p>
-      }
+            </thead>
+            <tbody>
+              {data.map((row, idx) => (
+                <tr key={idx} className="hover:bg-gray-50">
+                  <td className="py-2 px-4 border-b">{row.date}</td>
+                  <td className="py-2 px-4 border-b">{humanizeNumber(row.revenue)}</td>
+                  <td className="py-2 px-4 border-b">{humanizeNumber(row.netIncome)}</td>
+                  <td className="py-2 px-4 border-b">{humanizeNumber(row.grossProfit)}</td>
+                  <td className="py-2 px-4 border-b">{row.eps}</td>
+                  <td className="py-2 px-4 border-b">{humanizeNumber(row.operatingIncome)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-4 space-y-4 bg-gray-100 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold">Filter Entries</h2>
+        
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-x-4 sm:space-y-0">
+          <label htmlFor="datestart" className="font-medium">Year:</label>
+          <input
+            type="number"
+            id="datestart"
+            name="datestart"
+            value={formData.datestart}
+            placeholder='Initial Year'
+            onChange={handleChange}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span>to</span>
+          <input
+            type="number"
+            id="dateend"
+            name="dateend"
+            placeholder='End Year'
+            value={formData.dateend}
+            onChange={handleChange}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+  
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-x-4 sm:space-y-0">
+          <label htmlFor="Revenue" className="font-medium">Revenue:</label>
+          <input
+            type="number"
+            id="RevenueMin"
+            name="RevenueMin"
+            placeholder='Min Revenue'
+            value={formData.Revenue_min}
+            onChange={handleChange}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span>to</span>
+          <input
+            type="number"
+            id="RevenueMax"
+            name="RevenueMax"
+            placeholder='Max Revenue'
+            value={formData.Revenue_max}
+            onChange={handleChange}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+  
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-x-4 sm:space-y-0">
+          <label htmlFor="Net Income" className="font-medium">Net Income:</label>
+          <input
+            type="number"
+            id="NetMin"
+            name="NetMin"
+            placeholder='Min Net Income'
+            value={formData.Net_min}
+            onChange={handleChange}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span>to</span>
+          <input
+            type="number"
+            id="NetMax"
+            name="NetMax"
+            placeholder='Max Net Income'
+            value={formData.Net_max}
+            onChange={handleChange}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+  
+        <div className="flex space-x-4">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            onClick={resetData}
+            className="px-4 py-2 bg-gray-300 text-black font-semibold rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+        </div>
+        
+      ) : (
+        <p className="mt-6 text-center text-gray-500">Now loading...</p>
+      )}
     </>
-  )
+  );
 }
 
 export default Table
